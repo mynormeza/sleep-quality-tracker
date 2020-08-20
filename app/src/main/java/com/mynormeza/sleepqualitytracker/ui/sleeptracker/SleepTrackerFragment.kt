@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mynormeza.sleepqualitytracker.R
 import com.mynormeza.sleepqualitytracker.databinding.SleepTrackerFragmentBinding
@@ -31,6 +32,15 @@ class SleepTrackerFragment : Fragment() {
                 this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
+        val manager = GridLayoutManager(activity, 3)
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int) = when (position) {
+                0 -> 3
+                else -> 1
+            }
+        }
+        binding.sleepList.layoutManager = manager
+
         val adapter = SleepNightAdapter(SleepNightAdapter.SleepNightListener { nightId ->
             sleepTrackerViewModel.onSleepNightClicked(nightId)
         })
@@ -46,7 +56,7 @@ class SleepTrackerFragment : Fragment() {
 
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.addHeaderAndSubmitList(it)
             }
         })
 
