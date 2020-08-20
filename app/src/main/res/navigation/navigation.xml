@@ -29,5 +29,24 @@
             app:destination="@id/sleepQualityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_sleepTrackerFragment_to_sleepDetailFragment"
+            app:destination="@id/sleepDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepDetailFragment"
+        android:name="com.mynormeza.sleepqualitytracker.ui.sleepdetail.SleepDetailFragment"
+        android:label="SleepDetailFragment" >
+
+        <argument
+            android:name="sleepNightKey"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_sleepDetailFragment_to_sleepTrackerFragment"
+            app:destination="@id/sleepTrackerFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/sleep_tracker_fragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

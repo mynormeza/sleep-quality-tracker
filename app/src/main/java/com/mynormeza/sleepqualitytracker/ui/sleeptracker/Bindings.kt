@@ -9,8 +9,8 @@ import com.mynormeza.sleepqualitytracker.convertNumericQualityToString
 import com.mynormeza.sleepqualitytracker.db.SleepNight
 
 @BindingAdapter("sleepImage")
-fun ImageView.setSleepImage(item: SleepNight) {
-    setImageResource(when (item.sleepQuality) {
+fun ImageView.setSleepImage(item: SleepNight?) {
+    setImageResource(when (item?.sleepQuality) {
         0 -> R.drawable.ic_sleep_0
         1 -> R.drawable.ic_sleep_1
         2 -> R.drawable.ic_sleep_2
